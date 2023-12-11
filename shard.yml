@@ -1,0 +1,13 @@
+name: crystal_coin
+version: 0.1.0
+
+authors:
+  - Oblivious <thanos.papap42@gmail.com>
+
+targets:
+  crystal_coin:
+    main: src/crystal_coin.cr
+
+crystal: '>= 1.10.1'
+
+license: MIT
