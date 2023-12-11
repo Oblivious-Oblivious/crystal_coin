@@ -1,6 +1,6 @@
 # TODO: Write documentation for `CrystalCoin`
-module CrystalCoin
-  VERSION = "0.1.0"
+require "./extensions/Time+now";
 
-  # TODO: Put your code here
+module CrystalCoin
+  VERSION = "0.1.0";
 end
