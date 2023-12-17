@@ -7,14 +7,12 @@ describe "Blockchain" do
     previous_block = blockchain[0];
 
     5.times do
-      new_block = CrystalCoin::Block.next(
-        previous_block: previous_block,
-      );
+      new_block = CrystalCoin::Block.next previous_block: previous_block;
       blockchain << new_block;
       previous_block = new_block;
+      puts new_block.inspect;
     end
 
-    pp blockchain;
-    blockchain.size.should eq (6);
+    blockchain.size.should eq 6;
   end
 end
