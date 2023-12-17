@@ -1,12 +1,22 @@
+require "json";
+
 require "./ProofOfWork";
 require "./Transaction";
 
 class CrystalCoin::Block
   include ProofOfWork;
+  include JSON::Serializable;
 
+  @[JSON::Field(key: "current_hash")]
   getter current_hash : String;
+
+  @[JSON::Field(key: "index")]
   getter index : Int32;
+
+  @[JSON::Field(key: "nonce")]
   getter nonce : Int32;
+
+  @[JSON::Field(key: "previous_hash")]
   getter previous_hash : String;
 
   def self.first(data = "Genesis Block")

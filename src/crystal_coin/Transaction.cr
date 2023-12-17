@@ -1,8 +1,17 @@
+require "json";
+
 class CrystalCoin::Block
   class Transaction
-    getter from : String;
-    getter to : String;
-    getter amount : Int32;
+    include JSON::Serializable;
+    
+    @[JSON::Field(key: "from")]
+    property from : String;
+
+    @[JSON::Field(key: "to")]
+    property to : String;
+
+    @[JSON::Field(key: "amount")]
+    property amount : Int64;
 
     def initialize(@from, @to, @amount) end
   end
