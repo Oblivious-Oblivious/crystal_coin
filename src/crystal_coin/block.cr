@@ -1,10 +1,7 @@
 require "./ProofOfWork";
-require "digest/sha256";
+require "./Transaction";
 
 class CrystalCoin::Block
-  # NOTE - Testing
-  getter data : String;
-
   include ProofOfWork;
 
   getter current_hash : String;
@@ -12,29 +9,28 @@ class CrystalCoin::Block
   getter nonce : Int32;
   getter previous_hash : String;
 
-  private def hash_block
-    Digest::SHA256.hexdigest "#{@index}#{@timestamp}#{@data}#{@previous_hash}";
-  end
-
   def self.first(data = "Genesis Block")
-    Block.new data: data, previous_hash: "0";
+    Block.new previous_hash: "0";
   end
 
-  def self.next(previous_block, data = "Transaction Data")
+  def self.next(previous_block, transactions = [] of Transaction)
     Block.new(
-      data: "Transaction data number (#{previous_block.index + 1})",
+      transactions: transactions,
       index: previous_block.index + 1,
       previous_hash: previous_block.current_hash,
     )
   end
 
-  def initialize(index = 0, data = "data", previous_hash = "hash")
-    @data = data;
+  def initialize(
+    index = 0,
+    transactions = [] of Transaction,
+    previous_hash = "hash",
+  )
     @index = index;
-    @timestamp = Time.now;
+    @transactions = transactions;
     @previous_hash = previous_hash;
+    @timestamp = Time.now;
     @nonce = proof_of_work;
     @current_hash = calc_hash_with_nonce @nonce;
   end
 end
-
