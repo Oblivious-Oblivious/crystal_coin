@@ -8,6 +8,10 @@ targets:
   crystal_coin:
     main: src/crystal_coin.cr
 
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+
 crystal: '>= 1.10.1'
 
 license: MIT
