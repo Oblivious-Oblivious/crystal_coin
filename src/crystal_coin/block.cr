@@ -7,17 +7,23 @@ class CrystalCoin::Block
   include ProofOfWork;
   include JSON::Serializable;
 
-  @[JSON::Field(key: "current_hash")]
-  getter current_hash : String;
-
   @[JSON::Field(key: "index")]
   getter index : Int32;
+
+  @[JSON::Field(key: "current_hash")]
+  getter current_hash : String;
 
   @[JSON::Field(key: "nonce")]
   getter nonce : Int32;
 
   @[JSON::Field(key: "previous_hash")]
   getter previous_hash : String;
+
+  @[JSON::Field(key: "transactions")]
+  getter transactions : Array(Transaction);
+
+  @[JSON::Field(key: "timestamp")]
+  getter timestamp : String;
 
   def self.first(data = "Genesis Block")
     Block.new previous_hash: "0";
@@ -40,6 +46,11 @@ class CrystalCoin::Block
     @transactions = transactions;
     @previous_hash = previous_hash;
     @timestamp = Time.now;
+    @nonce = proof_of_work;
+    @current_hash = calc_hash_with_nonce @nonce;
+  end
+
+  def recalculate_hash
     @nonce = proof_of_work;
     @current_hash = calc_hash_with_nonce @nonce;
   end

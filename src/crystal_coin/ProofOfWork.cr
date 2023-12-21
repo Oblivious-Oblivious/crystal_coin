@@ -2,7 +2,7 @@ require "digest/sha256";
 
 module CrystalCoin::ProofOfWork
   private def calc_hash_with_nonce(nonce = 0)
-    Digest::SHA256.hexdigest "#{nonce}#{@index}#{@timestamp}#{@previous_hash}";
+    Digest::SHA256.hexdigest "#{nonce}#{@index}#{@timestamp}#{transactions}#{@previous_hash}";
   end
 
   private def proof_of_work(difficulty = "00")
